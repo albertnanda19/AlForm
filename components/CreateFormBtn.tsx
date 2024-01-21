@@ -12,9 +12,11 @@ import { toast } from "./ui/use-toast";
 import { formSchema, formSchemaType } from "@/schemas/form";
 import { CreateForm } from "@/actions/form";
 import { BsFileEarmarkPlus } from "react-icons/bs"
+import { useRouter } from "next/navigation";
 
 const CreateFormBtn = () => {
 
+    const router = useRouter();
     const form = useForm<formSchemaType>({
         resolver: zodResolver(formSchema),
     })
@@ -26,7 +28,7 @@ const CreateFormBtn = () => {
                 title: "Success",
                 description: "Form created successfully"
             });
-            console.log("FORM ID", formId);
+            router.push(`/builder/${formId}`);
         } catch (error) {
             toast({
                 title: "Error",
