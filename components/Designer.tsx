@@ -12,7 +12,7 @@ import { BiSolidTrash } from "react-icons/bi";
 
 const Designer = () => {
 
-    const { elements, addElement } = useDesigner();
+    const { elements, addElement, selectedElement, setSelectedElement } = useDesigner();
 
     const droppable = useDroppable({
         id: "designer-drop-area",
@@ -37,13 +37,17 @@ const Designer = () => {
                 addElement(0, newElement);
             }
 
-            console.log("Drag end", event)
         },
     })
 
     return (
         <div className="flex w-full h-full">
-            <div className="p-4 w-full">
+            <div
+                className="p-4 w-full"
+                onClick={() => {
+                    if (selectedElement) setSelectedElement(null);
+                }}
+            >
                 <div ref={droppable.setNodeRef} className={cn(
                     "bg-background max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto",
                     droppable.isOver && "ring-2 ring-primary/20"
@@ -72,7 +76,7 @@ const Designer = () => {
 
 const DesignerElementWrapper = ({ element }: { element: FormElementInstance }) => {
 
-    const { removeElement } = useDesigner();
+    const { removeElement, selectedElement, setSelectedElement } = useDesigner();
 
     const [mouseIsOver, setMouseIsOver] = useState<boolean>(false);
 
@@ -114,13 +118,23 @@ const DesignerElementWrapper = ({ element }: { element: FormElementInstance }) =
             className="relative h-[120px] flex flex-col text-foreground hover:cursor-pointer rounded-md ring-1 ring-accent ring-inset"
             onMouseEnter={() => setMouseIsOver(true)}
             onMouseLeave={() => setMouseIsOver(false)}
+            onClick={(e) => {
+                e.stopPropagation();
+                setSelectedElement(element)
+            }}
         >
             <div ref={topHalf.setNodeRef} className="absolute w-full h-1/2 rounded-t-md"></div>
             <div ref={bottomHalf.setNodeRef} className="absolute bottom-0 w-full h-1/2 rounded-b-md"></div>
             {mouseIsOver && (
                 <>
                     <div className="absolute right-0 h-full">
-                        <Button className="flex justify-center h-full border rounded-md rounded-l-none bg-red-500" variant={"outline"} onClick={() => { removeElement(element.id) }}>
+                        <Button
+                            className="flex justify-center h-full border rounded-md rounded-l-none bg-red-500" variant={"outline"}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                removeElement(element.id)
+                            }}
+                        >
                             <BiSolidTrash className="h-6 w-6" />
                         </Button>
                     </div>
