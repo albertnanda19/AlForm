@@ -21,6 +21,7 @@ import {
 } from "../ui/form"
 import { LuHeading1 } from "react-icons/lu";
 import { BsTextParagraph } from "react-icons/bs";
+import { Textarea } from "../ui/textarea";
 
 const type: ElementsType = "ParagraphField";
 
@@ -83,7 +84,7 @@ const PropertiesComponent = ({
                         <FormItem>
                             <FormLabel>Text</FormLabel>
                             <FormControl>
-                                <Input {...field} onKeyDown={(e) => {
+                                <Textarea rows={5} {...field} onKeyDown={(e) => {
                                     if (e.key === "Enter") e.currentTarget.blur();
                                 }} />
                             </FormControl>

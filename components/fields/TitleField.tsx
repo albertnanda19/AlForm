@@ -1,6 +1,5 @@
 "use client";
 
-import { MdTextFields } from "react-icons/md";
 import { ElementsType, FormElement, FormElementInstance, SubmitFunction } from "../FormElements";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -13,14 +12,11 @@ import useDesigner from "../hooks/useDesigner";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage
 } from "../ui/form"
-import { Switch } from "../ui/switch";
-import { cn } from "@/lib/utils";
 import { LuHeading1 } from "react-icons/lu";
 
 const type: ElementsType = "TitleField";
