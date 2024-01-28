@@ -91,7 +91,7 @@ const StatsCards = (props: StatsCardProps) => {
   )
 }
 
-const StatsCard = ({ title, value, icon, helperText, loading, className }: {
+export const StatsCard = ({ title, value, icon, helperText, loading, className }: {
   title: string;
   value: string;
   icon: React.ReactNode;
