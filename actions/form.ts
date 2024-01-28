@@ -131,3 +131,19 @@ export const PublishForm = async (id: number) => {
         }
     })
 }
+
+export const GetFormContentByUrl = async (formUrl: string) => {
+    return await prisma.form.update({
+        select: {
+            content: true
+        },
+        data: {
+            visits: {
+                increment: 1
+            }
+        },
+        where: {
+            shareURL: formUrl
+        }
+    })
+}
